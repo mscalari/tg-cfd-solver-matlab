@@ -3,6 +3,14 @@ function F = mass_flux(direction, escoamento, i, j, u, v, u_analitica, u_star, n
 %   As faces ficam entre nós de velocidade, logo o fluxo normal é a média
 %   de dois nós. Nós mascarados valem 0, então paredes internas não exigem
 %   tratamento próprio.
+%
+%   ENTRADAS
+%     direction : "u" ou "v", a componente do VC deslocado
+%     escoamento, i, j : escoamento e índices do nó
+%     u, v      : campos da iteração anterior
+%     u_analitica : perfil de entrada
+%     u_star    : u já predito, usado nas faces do VC de v
+%     numerical_param, physical_param : ver build_case
     rho = physical_param(4);
     Nx  = numerical_param{5};  Ny = numerical_param{6};
     dx  = numerical_param{7};  dy = numerical_param{8};

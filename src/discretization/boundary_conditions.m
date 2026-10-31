@@ -2,6 +2,14 @@ function s_vc = boundary_conditions(direction, escoamento, i, j, u, u_analitica,
 %BOUNDARY_CONDITIONS  Soma aE*uE + aW*uW + aN*uN + aS*uS com os contornos.
 %   'u' é o campo da componente em 'direction'. Nós mascarados valem 0,
 %   então paredes internas não exigem tratamento próprio.
+%
+%   ENTRADAS
+%     direction, escoamento, i, j : componente, escoamento e índices do nó
+%     u           : campo da componente
+%     u_analitica : perfil de entrada
+%     a           : [aE,aW,aN,aS] de espac_disc
+%     numerical_param : ver build_case
+%     U           : velocidade da parede superior móvel
     aE = a(1);  aW = a(2);  aN = a(3);  aS = a(4);
 
     Nx  = numerical_param{5};  Ny = numerical_param{6};

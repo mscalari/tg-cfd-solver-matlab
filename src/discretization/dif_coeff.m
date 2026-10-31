@@ -1,5 +1,6 @@
 function D = dif_coeff(mu,dx,dy)
-    %  Condutâncias difusivas (malha uniforme, mu constante):
+    %DIF_COEFF  Condutâncias difusivas de u e v em malha uniforme com mu constante.
+    %  Devolve D = [De_u, Dw_u, Dn_u, Ds_u, De_v, Dw_v, Dn_v, Ds_v].
     %    De = mu * dy/dx   (difusão u na dir. x entre P e E)
     %    Dw = mu * dy/dx
     %    Dn = mu * dx/dy   (difusão u na dir. y entre P e N)

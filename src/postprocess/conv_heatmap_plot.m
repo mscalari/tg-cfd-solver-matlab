@@ -1,4 +1,14 @@
 function conv_heatmap_plot(ax, iters_matrix, diverged_mask, alpha_u_vals, alpha_p_vals, panel_title, max_iter)
+%CONV_HEATMAP_PLOT  Desenha em ax o mapa de iterações no plano (alpha_p, alpha_u).
+%   Pontos convergidos mostram o número de iterações; os demais, um X vermelho.
+%
+%   ENTRADAS
+%     ax            : eixo de destino
+%     iters_matrix  : iterações, com linhas em alpha_u e colunas em alpha_p
+%     diverged_mask : true onde não houve convergência
+%     alpha_u_vals, alpha_p_vals : valores dos eixos
+%     panel_title   : título do painel
+%     max_iter      : limite superior da escala de cores
     axes(ax); 
     imagesc(ax, alpha_p_vals, alpha_u_vals, iters_matrix);
     set(ax, 'YDir', 'normal');

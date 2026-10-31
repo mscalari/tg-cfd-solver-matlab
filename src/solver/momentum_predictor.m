@@ -8,15 +8,23 @@ function [u_star, v_star, aPU, aU, aPV, aV, is_wall, is_wall_u, is_wall_v] = ...
 %   o coeficiente central aP e o vetor de coeficientes vizinhos
 %   [aE,aW,aN,aS], necessarios para:
 %
-%     - SIMPLEC (simplec_solver.m): recalcular
+%     - SIMPLEC: recalcular
 %           d = A / (aP/alpha_u - sum(anb))
-%     - PISO    (piso_solver.m)   : recalcular a "correcao de vizinhanca"
+%     - PISO   : recalcular a "correcao de vizinhanca"
 %           sum(anb .* (u**_nb - u*_nb)) / (aP/alpha_u)
 %       do segundo corretor.
 %
-%   Os tres solvers usam-na para nao duplicar a logica
-%   do passo preditor (mass_flux + espac_disc + boundary_conditions +
-%   pressure_interp + sub-relaxacao).
+%   O passo preditor combina mass_flux, espac_disc, boundary_conditions,
+%   pressure_interp e sub-relaxacao.
+%
+%   ENTRADAS
+%     u, v, p        : campos da iteracao anterior
+%     u_analitica    : perfil de entrada
+%     D              : condutancias de dif_coeff
+%     escoamento     : nome do escoamento
+%     esquema_convec : esquema aceito por espac_disc
+%     interp_pressao : interpolacao aceita por pressure_interp
+%     numerical_param, physical_param : ver build_case
 %
 %   SAIDAS
 %     u_star, v_star : campos de velocidade preditos
@@ -32,12 +40,7 @@ alpha_u  = numerical_param{1};
 Nx       = numerical_param{5};  Ny = numerical_param{6};
 dx       = numerical_param{7};  dy = numerical_param{8};
 
-% Máscara de paredes sólidas nos VCs escalares (11º elemento, se existir)
-if length(numerical_param) >= 11
-    is_wall = numerical_param{11};
-else
-    is_wall = false(Nx, Ny);
-end
+is_wall = numerical_param{11};   % máscara de sólidos nos VCs escalares
 
 % Máscara para nós de u(i,j) - sólido se VC(i,j) ou VC(i+1,j) for parede
 is_wall_u = false(Nx-1, Ny);

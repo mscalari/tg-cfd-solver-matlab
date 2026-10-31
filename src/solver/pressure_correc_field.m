@@ -1,5 +1,15 @@
 function p_prime = pressure_correc_field(d_u, d_v, numerical_param, physical_param, bp, escoamento)
-% Resolve p' por Gauss-Seidel. d = 0 nos nós mascarados isola as paredes.
+%PRESSURE_CORREC_FIELD  Resolve a correção de pressão p' por Gauss-Seidel.
+%
+%   ENTRADAS
+%     d_u, d_v : coeficientes de compute_d_field; d = 0 nos nós mascarados
+%                isola as paredes
+%     numerical_param, physical_param : ver build_case
+%     bp       : resíduo de massa de cada VC escalar
+%     escoamento : nome do escoamento; só o domínio fechado fixa referência
+%
+%   SAÍDA
+%     p_prime (Nx,Ny) : correção de pressão, com até 200 varreduras
 
     rho = physical_param(4);
     Nx = numerical_param{5}; Ny = numerical_param{6};

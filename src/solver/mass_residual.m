@@ -1,7 +1,14 @@
 function bp = mass_residual(u_star, v_star, u_analitica, i, j, numerical_param, physical_param, escoamento)
-%  Resíduo de continuidade integrado no VC escalar (i,j):
+%MASS_RESIDUAL  Resíduo de continuidade integrado no VC escalar (i,j).
 %    b'(i,j) = rho * [(uw - ue)*dy + (vs - vn)*dx]
 %  Nós mascarados valem 0, então paredes internas têm fluxo nulo.
+%
+%  ENTRADAS
+%    u_star, v_star  : campos de velocidade avaliados
+%    u_analitica     : perfil de entrada
+%    i, j            : índices do VC escalar
+%    numerical_param, physical_param : ver build_case
+%    escoamento      : nome do escoamento
 
     rho = physical_param(4);
     Nx  = numerical_param{5};  Ny = numerical_param{6};
