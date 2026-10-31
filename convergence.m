@@ -1,0 +1,27 @@
+function [res, res_hist, flag] = convergence(vetor, iter, res_hist, numerical_param)
+    tol = numerical_param{3};
+    max_iter = numerical_param{4};
+
+    flag = false;
+    res = norm(vetor, 'fro');
+    res_hist(iter) = res;
+
+    if mod(iter,100)==0 || iter==1
+        fprintf(' %4d    %.4e\n', iter, res);
+    end
+
+    if res < tol
+        fprintf(' %4d    %.4e  <-- CONVERGIU\n', iter, res);
+        res_hist = res_hist(1:iter);
+        flag = true;
+    end
+
+    if iter == max_iter 
+        flag = true;
+    end
+
+    if isnan(res)
+        flag = true;
+        res_hist = res_hist(1:iter);
+    end
+end
